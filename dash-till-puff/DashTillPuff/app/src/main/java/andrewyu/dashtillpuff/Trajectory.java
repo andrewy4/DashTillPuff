@@ -16,28 +16,36 @@ import android.view.*;
 
      class Trajectory implements TimeConscious {
          ArrayList<PointF> points = new ArrayList<>();
-/*
-         public void pseudoMethod(){
-            // Choosing these points
-             points.add(0,PointF(1,3));
-             points.add(1,);
-             points.add(2,);
-             points.add(3,);
-             points.add(4,);
+         private float x;
+         private float y;
+         private Path path;
+         private Paint paint;
+
+         Trajectory(float Width, float Height){
+             path = new Path ();
+             paint = new Paint();
+             paint.setStyle(Paint.Style.STROKE);
+             paint.setStrokeWidth(10);
+             y = Height/2; // drawing the line from the beginning
+             x= 0;// starting in the middle
+
+             int i=0; // initialize counter
+
+             // This do while loop will determine the points
+             do{
+                 points.add(i, new PointF(x, y));
+                 x += Width/40;
+                 i++;
+             }
+             while(i<41);
          }
-*/
-         /*
-        public void draw( Canvas c, float Width, float Height){
-            // this thing should draw the line
-            Path path = new Path ();
-           // path . moveTo ( Width/2, Height) ; // Move to first point
-            path . lineTo (Width/2, Height/2);
-            Paint paint = new Paint();
-// Set paint color , alpha , line width , dashed style , etc .
-            paint.setColor(Color.BLACK);
-            c . drawPath ( path , paint ) ;
-        }
-        */
+
+         private void update(){
+
+         
+
+         }
+
 
          @Override
         public void tick ( Canvas canvas ) {
@@ -45,18 +53,24 @@ import android.view.*;
              // As time ticks , append more points to the trajectory and
             // discard those points that have crossed the entire
             // span of the screen .
-             Path path = new Path ();
 
 
-             // path . moveTo ( Width/2, Height) ; // Move to first point
+             // Set paint color , alpha , line width , dashed style , etc .
 
-             path . lineTo (canvas.getWidth()/2, canvas.getHeight()/2);
-             Paint paint = new Paint();
-             paint.setStyle(Paint.Style.STROKE);
-             paint.setStrokeWidth(10);
-            // Set paint color , alpha , line width , dashed style , etc .
-             paint.setColor(Color.WHITE);
-             canvas . drawPath ( path , paint ) ;
+             // This for loop will connect the said points;
+
+            for(int i = 1; i<41; i+=2){
+                path.moveTo(points.get(i-1).x, points.get(i-1).y);
+                path.lineTo(points.get(i).x, points.get(i).y);
+                paint.setColor(Color.WHITE);
+                canvas . drawPath ( path , paint ) ;
+
+
+               // points.set(i, points.get(i)); // d
+
+             }
+
+             //as this function is called it with keep redrawing the
 
         }
 }

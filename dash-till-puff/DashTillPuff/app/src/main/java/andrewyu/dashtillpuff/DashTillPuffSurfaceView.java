@@ -18,9 +18,11 @@ import android.view.SurfaceView;
 
 public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolder.Callback , TimeConscious {
         public DashTillPuffRenderThread renderThread;
-        Bitmap bitmap;
-         float Width;
-         float Height;
+        public Bitmap bitmap;
+        public float Width;
+        public float Height;
+        public Trajectory trajectory;
+
 
 
         public float returnWidth(){
@@ -42,9 +44,10 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
             Height = getHeight();
             BitmapFactory.Options options = new BitmapFactory.Options();
             bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.dashtillpuffwallpaper,options);
-
+            trajectory = new Trajectory(Width, Height);
             renderThread = new DashTillPuffRenderThread ( this ) ;
             renderThread . start () ;
+
 
 // Create the sliding background , cosmic factory , trajectory
 // and the space ship
@@ -81,21 +84,13 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
 // Tick background , space ship , cosmic factory , and trajectory .
 // Draw everything ( restricted to the displayed rectangle ) .
 
-            Path path = new Path();
-
-
             Paint paint = new Paint();
-
-            Paint linePaint = new Paint();
-
-
-
             paint.setAlpha(255);
             Rect dst = new Rect(0,0,getWidth(),getHeight());
             c.drawBitmap(bitmap,null,dst,paint);
             //bitmap declared earlier to be the background pic.
-            Trajectory line = new Trajectory();
-            line.tick(c);
+
+            trajectory.tick(c);
 
         }
     }
