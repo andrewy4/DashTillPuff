@@ -83,7 +83,7 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
         public void tick( Canvas c ) {
 // Tick background , space ship , cosmic factory , and trajectory .
 // Draw everything ( restricted to the displayed rectangle ) .
-
+            trajectory.updateLine(c);
             Paint paint = new Paint();
             paint.setAlpha(255);
             Rect dst = new Rect(0,0,getWidth(),getHeight());

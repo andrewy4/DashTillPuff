@@ -1,4 +1,3 @@
-/*This thing need to be changed completely. Testing for now*/
 package andrewyu.dashtillpuff;
 
 import android.graphics.Canvas;
@@ -16,21 +15,26 @@ import android.view.*;
 
      class Trajectory implements TimeConscious {
          ArrayList<PointF> points = new ArrayList<>();
-         private float x;
-         private float y;
-         private Path path;
+
          private Paint paint;
+         private float Height;
+         private int counter;
+         Random rand;
+         private int shift;
+
 
          Trajectory(float Width, float Height){
-             path = new Path ();
+             shift = 0;
+             rand = new Random();
+             counter  = 0;
+             this.Height = Height;
              paint = new Paint();
              paint.setStyle(Paint.Style.STROKE);
              paint.setStrokeWidth(10);
-             y = Height/2; // drawing the line from the beginning
-             x= 0;// starting in the middle
+             float y = Height/2; // drawing the line from the beginning
+             float x= 0;// starting in the middle
 
              int i=0; // initialize counter
-
              // This do while loop will determine the points
              do{
                  points.add(i, new PointF(x, y));
@@ -40,37 +44,49 @@ import android.view.*;
              while(i<41);
          }
 
-         private void update(){
+         public void updateLine(Canvas canvas){
 
-         
+             for(int i = 0; i<40; i++)
+                 points.get(i).y = points.get(i+1).y;
+             if(counter == 5 ) {
+                 shift = (rand.nextInt(75) - 37);
+                 counter = 0;
+             }
+             points.get(40).y += shift;
+             counter +=1;
+             while(points.get(40).y<0 || points.get(40).y> Height){
+                 shift = rand.nextInt(75)-37;
+                 points.get(40).y+= shift;
+                 counter = 1;
+             }
+
+         }
+
+         private void lineDraw(Canvas canvas){
+             Path path = new Path();
+             for(int i = 1; i<41; i+=2) {
+                 path.moveTo(points.get(i - 1).x, points.get(i - 1).y);
+                 path.lineTo(points.get(i).x, points.get(i).y);
+                 paint.setColor(Color.WHITE);
+                 canvas.drawPath(path, paint);
+             }
+
 
          }
 
 
+
+
+
          @Override
         public void tick ( Canvas canvas ) {
-
-             // As time ticks , append more points to the trajectory and
+            // As time ticks , append more points to the trajectory and
             // discard those points that have crossed the entire
             // span of the screen .
-
-
              // Set paint color , alpha , line width , dashed style , etc .
-
-             // This for loop will connect the said points;
-
-            for(int i = 1; i<41; i+=2){
-                path.moveTo(points.get(i-1).x, points.get(i-1).y);
-                path.lineTo(points.get(i).x, points.get(i).y);
-                paint.setColor(Color.WHITE);
-                canvas . drawPath ( path , paint ) ;
+             lineDraw(canvas);
 
 
-               // points.set(i, points.get(i)); // d
-
-             }
-
-             //as this function is called it with keep redrawing the
 
         }
 }

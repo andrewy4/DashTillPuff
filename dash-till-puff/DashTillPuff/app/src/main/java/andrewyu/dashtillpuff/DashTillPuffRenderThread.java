@@ -10,7 +10,7 @@ import android.view.SurfaceHolder;
 public class DashTillPuffRenderThread extends Thread {
     private final DashTillPuffSurfaceView view;
 
-    private static final int FRAME_PERIOD = 5; // In ms
+    private static final int FRAME_PERIOD = 50; // In ms
     public DashTillPuffRenderThread ( DashTillPuffSurfaceView view ) {
         this . view = view ;
     }
