@@ -7,7 +7,7 @@ public class Line {
 
     private int point;
     public void size(){
-        //need to implement the funtion here
+        //need to implement the function here
     }
 
 

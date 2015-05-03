@@ -9,6 +9,9 @@ public class CosmicFactory implements TimeConscious{
 
     @Override
     public void tick ( Canvas canvas ) {
+
+        // am i supposed to do shit here?
+        //
 // Create new ‘‘ clusters ’’ of cosmic objects . Alternately place
 // clusters of cosmic objects above and below the guiding
 // trajectory .

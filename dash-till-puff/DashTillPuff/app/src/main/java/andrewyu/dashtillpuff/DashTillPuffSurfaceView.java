@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -17,8 +19,17 @@ import android.view.SurfaceView;
 public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolder.Callback , TimeConscious {
         public DashTillPuffRenderThread renderThread;
         Bitmap bitmap;
-        float Width;
-        float Height;
+         float Width;
+         float Height;
+
+
+        public float returnWidth(){
+            return getWidth();
+        }
+
+        public float returnHeight(){
+            return getHeight();
+        }
 
         public DashTillPuffSurfaceView ( Context context ) {
             super ( context ) ;
@@ -62,26 +73,30 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
         @Override
         public void onDraw ( Canvas c ) {
             super . onDraw ( c ) ;
-            tick(c);
 // Draw everything ( restricted to the displayed rectangle ) .
         }
-
-
-
-
-
-
 
         @Override
         public void tick( Canvas c ) {
 // Tick background , space ship , cosmic factory , and trajectory .
 // Draw everything ( restricted to the displayed rectangle ) .
+
+            Path path = new Path();
+
+
             Paint paint = new Paint();
+
+            Paint linePaint = new Paint();
+
+
+
             paint.setAlpha(255);
             Rect dst = new Rect(0,0,getWidth(),getHeight());
             c.drawBitmap(bitmap,null,dst,paint);
+            //bitmap declared earlier to be the background pic.
             Trajectory line = new Trajectory();
-            line.draw(c, Width, Height);
+            line.tick(c);
+
         }
     }
 
