@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Chau on 4/29/2015.
@@ -18,11 +18,12 @@ import android.view.SurfaceView;
 
 public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolder.Callback , TimeConscious {
         public DashTillPuffRenderThread renderThread;
-        public Bitmap bitmap;
+        Bitmap bitmap;
         public float Width;
         public float Height;
         public Trajectory trajectory;
-
+        public CosmicFactory cosmicFactory;
+        public Rocket rocket;
 
 
         public float returnWidth(){
@@ -43,8 +44,10 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
             Width = getWidth();
             Height = getHeight();
             BitmapFactory.Options options = new BitmapFactory.Options();
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.dashtillpuffwallpaper,options);
+            bitmap =BitmapFactory.decodeResource(getResources(),R.drawable.dashtillpuffwallpaper,options);
+            rocket = new Rocket(this, Width, Height);
             trajectory = new Trajectory(Width, Height);
+            cosmicFactory = new CosmicFactory(this, trajectory, Width, Height);
             renderThread = new DashTillPuffRenderThread ( this ) ;
             renderThread . start () ;
 
@@ -67,9 +70,12 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
         public boolean onTouchEvent ( MotionEvent e ) {
             switch ( e . getAction () ) {
                 case MotionEvent . ACTION_DOWN : // Thrust the space ship up .
+                    rocket.changeInputToTrue();
                     break ;
                 case MotionEvent . ACTION_UP : // Let space ship fall freely .
-                    break ;
+                    rocket.changeInputToFalse();
+                    break;
+
             }
             return true ;
         }
@@ -83,7 +89,8 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
         public void tick( Canvas c ) {
 // Tick background , space ship , cosmic factory , and trajectory .
 // Draw everything ( restricted to the displayed rectangle ) .
-            trajectory.updateLine(c);
+
+
             Paint paint = new Paint();
             paint.setAlpha(255);
             Rect dst = new Rect(0,0,getWidth(),getHeight());
@@ -91,6 +98,9 @@ public class DashTillPuffSurfaceView extends SurfaceView implements SurfaceHolde
             //bitmap declared earlier to be the background pic.
 
             trajectory.tick(c);
+            cosmicFactory.tick(c);
+            rocket.tick(c);
+
 
         }
     }

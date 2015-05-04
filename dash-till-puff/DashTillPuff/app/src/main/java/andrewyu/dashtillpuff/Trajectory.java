@@ -19,7 +19,7 @@ import android.view.*;
          private Paint paint;
          private float Height;
          private int counter;
-         Random rand;
+         private Random rand;
          private int shift;
 
 
@@ -44,11 +44,11 @@ import android.view.*;
              while(i<41);
          }
 
-         public void updateLine(Canvas canvas){
+         public void updateLine(){
 
              for(int i = 0; i<40; i++)
                  points.get(i).y = points.get(i+1).y;
-             if(counter == 5 ) {
+             if(counter == 10 ) {
                  shift = (rand.nextInt(75) - 37);
                  counter = 0;
              }
@@ -70,23 +70,11 @@ import android.view.*;
                  paint.setColor(Color.WHITE);
                  canvas.drawPath(path, paint);
              }
-
-
          }
-
-
-
-
 
          @Override
         public void tick ( Canvas canvas ) {
-            // As time ticks , append more points to the trajectory and
-            // discard those points that have crossed the entire
-            // span of the screen .
-             // Set paint color , alpha , line width , dashed style , etc .
+             updateLine();
              lineDraw(canvas);
-
-
-
         }
 }
