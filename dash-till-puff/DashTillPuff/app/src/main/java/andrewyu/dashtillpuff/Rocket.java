@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 /*
- * Created by Ohyehyu on 5/3/2015.
+ * Created by Andrew Yu on 5/3/2015.
  */
 public class Rocket implements TimeConscious{
     private Bitmap bitmapUp;

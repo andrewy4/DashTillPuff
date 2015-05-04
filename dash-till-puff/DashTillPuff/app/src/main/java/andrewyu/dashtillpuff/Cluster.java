@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import java.util.Random;
 
 /*
- * Created by Ohyehyu on 5/3/2015.
+ * Created by Andrew Yu on 5/3/2015.
  */
 public class Cluster {
         private Paint clusterPaint;
