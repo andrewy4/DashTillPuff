@@ -29,6 +29,7 @@ public class CosmicFactory implements TimeConscious{
         this.Height = Height;
         this.Width = Width;
         BitmapFactory.Options options = new BitmapFactory.Options();
+        //loading all the pictures
         bitmap.add(BitmapFactory.decodeResource(view.getResources(), R.drawable.dashtillpuffblackhole, options));
         bitmap.add(BitmapFactory.decodeResource(view.getResources(), R.drawable.dashtillpuffblueplanet, options));
         bitmap.add(BitmapFactory.decodeResource(view.getResources(), R.drawable.dashtillpuffcloud, options));
@@ -39,24 +40,21 @@ public class CosmicFactory implements TimeConscious{
         bitmap.add(BitmapFactory.decodeResource(view.getResources(), R.drawable.dashtillpuffneutronstar, options));
         bitmap.add(BitmapFactory.decodeResource(view.getResources(), R.drawable.dashtillpuffstar1, options));
         bitmap.add(BitmapFactory.decodeResource(view.getResources(), R.drawable.dashtillpuffstar2, options));
-
-
     }
 
     public void drawCluster(Canvas c){
-
         for(int i = 1; i< cluster.size();i++)
         c.drawBitmap(bitmap.get(cluster.get(i).returnBit()), null, cluster.get(i).returnDst(), cluster.get(i).returnPaint());
-        counter -=1;
+        counter -=1;     //counter prevents drawing new objects to fast
     }
     public void removeCosmic() {
-        for (int i = 0; i < cluster.size(); i++) {
+        for (int i = 0; i < cluster.size(); i++) {   //checking out of bound
             if (cluster.get(i).returnX2() < 0)
                 cluster.remove(i);
         }
     }
 
-    public void counterChange(){
+    public void counterChange(){   //decide when is the next time to draw the next objects
         Random ran = new Random();
         counter = ran.nextInt(10)+1;
     }
@@ -70,7 +68,7 @@ public class CosmicFactory implements TimeConscious{
                 }
             }
         }
-        if(changeStyle == 9){
+        if(changeStyle == 9){     //when drawing 9 of the same cosmic, the switch will turn on and load a different cosmic
             changePic = true;
         }
 

@@ -38,7 +38,7 @@ public class Rocket implements TimeConscious{
     void changeInputToFalse(){
         input = false;
     }
-    public void acceleration(float Height) {
+    public void acceleration(float Height) {   //spaceship going up and down
         if (input) {
             y1 -= 30;
             y2 -= 30;

@@ -42,9 +42,9 @@ import java.util.*;
 
          public void updateLine(){
 
-             for(int i = 0; i<40; i++)
+             for(int i = 0; i<40; i++)                    //shifting the y depends on the previous y
                  points.get(i).y = points.get(i+1).y;
-             if(counter == 10 ) {
+             if(counter == 10 ) {                         //counter makes the line going in one direction at a time
                  shift = (rand.nextInt(75) - 37);
                  counter = 0;
              }
