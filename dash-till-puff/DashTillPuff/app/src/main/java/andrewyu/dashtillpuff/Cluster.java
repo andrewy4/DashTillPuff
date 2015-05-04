@@ -15,10 +15,13 @@ public class Cluster {
         private int y1;
         private int diff;
         private int bit;
-    public int returnX(){return x1+diff;}
+    public int returnX2(){return x1+diff;}
+    public int returnY2(){return y1+diff;}
+    public int returnX1(){return x1;}
+    public int returnY1(){return y1;}
     public Rect returnDst(){return dst;}
     public Paint returnPaint(){return clusterPaint;}
-
+    public int returnBit(){return bit;}
     Cluster(Trajectory t, float Height, int bit){
         this.bit = bit;
         Random ran = new Random();
@@ -41,7 +44,8 @@ public class Cluster {
         }
         dst = new Rect(x1,y1,x1+diff,y1+diff);
     }
-    public int returnBit(){return bit;}
+
+
     public void updateRect(float Width){
         x1 -=Width/40;
         dst = new Rect(x1,y1,x1+diff,y1+diff);

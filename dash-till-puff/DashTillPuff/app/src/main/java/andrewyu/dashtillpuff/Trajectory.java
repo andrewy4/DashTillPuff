@@ -6,11 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import java.util.*;
-import android.content.Context;
 
-import android.view.SurfaceView;
-import android.view.SurfaceHolder;
-import android.view.*;
 
 
      class Trajectory implements TimeConscious {

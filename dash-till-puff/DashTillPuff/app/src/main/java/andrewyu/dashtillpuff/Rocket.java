@@ -38,26 +38,36 @@ public class Rocket implements TimeConscious{
     void changeInputToFalse(){
         input = false;
     }
-    public void acceleration(float Height){
-        if(input){
-            y1-= 30;
-            y2-= 30;
-            if(y1<0){
-                y1= 0;
-                y2= 150;
+    public void acceleration(float Height) {
+        if (input) {
+            y1 -= 30;
+            y2 -= 30;
+            if (y1 < 0) {
+                y1 = 0;
+                y2 = 150;
             }
         }
-        if(!input){
-            y1 +=30;
-            y2 +=30;
-            if(y1>Height){
-                y1 = (int)Height - 150;
-                y2 = (int)Height;
+        if (!input) {
+            y1 += 30;
+            y2 += 30;
+            if (y1 > Height) {
+                y1 = (int) Height - 150;
+                y2 = (int) Height;
             }
         }
-        dst = new Rect(x1,y1,x2,y2);
-
+        dst = new Rect(x1, y1, x2, y2);
     }
+    public boolean collisionCheck(CosmicFactory cF){
+        float centerX = dst.exactCenterX();
+        float centerY = dst.exactCenterY();
+        for(int i =0;i<cF.cluster.size();i++) {
+            if (cF.cluster.get(i).returnX1() <= centerX && centerX <= cF.cluster.get(i).returnX2() && cF.cluster.get(i).returnY1()<=centerY && centerY <= cF.cluster.get(i).returnY2())
+                return true;
+        }
+        return false;
+    }
+
+
     @Override
     public void tick(Canvas canvas){
         acceleration(Height);

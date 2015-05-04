@@ -6,8 +6,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.content.Context;
-import android.graphics.Paint;
+
 
 /*
  * Created by Chau on 4/29/2015.
@@ -52,7 +51,7 @@ public class CosmicFactory implements TimeConscious{
     }
     public void removeCosmic() {
         for (int i = 0; i < cluster.size(); i++) {
-            if (cluster.get(i).returnX() < 0)
+            if (cluster.get(i).returnX2() < 0)
                 cluster.remove(i);
         }
     }
